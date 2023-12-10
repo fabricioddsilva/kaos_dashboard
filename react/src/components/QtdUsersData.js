@@ -6,7 +6,7 @@ function QtdUsersData() {
   const [show, setShow] = useState(false);
   const [numUsers, setNumUsers] = useState(0);
   const [oldestUserName, setOldestUserName] = useState({ name: ""});
-  const [oldestUserData, setOldestUserData] = useState({created_At: "" });
+  const [oldestUserData, setOldestUserData] = useState({ created_At: "" });
   const [userList, setUserList] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
