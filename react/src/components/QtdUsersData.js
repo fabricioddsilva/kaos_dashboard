@@ -5,8 +5,7 @@ import { AiOutlineUser } from "react-icons/ai";
 function QtdUsersData() {
   const [show, setShow] = useState(false);
   const [numUsers, setNumUsers] = useState(0);
-  const [oldestUserName, setOldestUserName] = useState({ name: "" });
-  const [oldestUserData, setOldestUserData] = useState({ created_At: "" });
+  const [newestUserData, setNewestUserData] = useState({ created_At: "" });
   const [userList, setUserList] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,19 +20,10 @@ function QtdUsersData() {
         console.error("Error fetching user count:", error);
       });
 
-    fetch("/api/users/name")
-      .then((response) => response.json())
-      .then((data) => {
-        setOldestUserData({ name: data.name });
-      })
-      .catch((error) => {
-        console.error("Error fetching oldest user data:", error);
-      });
-
       fetch("/api/extracts/created_At")
       .then((response) => response.json())
       .then((data) => {
-        setOldestUserName({ Created_At: data.created_At });
+        setNewestUserData({ created_At: new Date(data.created_At) });;
       })
       .catch((error) => {
         console.error("Error fetching oldest user data:", error);
@@ -61,9 +51,9 @@ function QtdUsersData() {
         </Card.Body>
       </Card>
       <Card className="text-center shadow border">
-        <Card.Header>Data de cadastro dos usuários</Card.Header>
+        <Card.Header>Data de ocorrências</Card.Header>
         <Card.Body>
-          <p className="fs-3 py-2">{`Usuario mais antigo cadastrado: ${oldestUserName.name} ${oldestUserData.created_At}`}</p>
+        <p className="fs-3 py-2">{`Ocorrência mais recente cadastrada: ${newestUserData.created_At.toLocaleString()}`}</p>
           {numUsers > 0 && (
             <Button className="mb-1 bg-danger-subtle text-black border-danger" onClick={handleShow}>
               Mostrar mais
