@@ -20,4 +20,9 @@ public class ExtractsController {
     public List<ExtractsDTO> list(){
         return services.list();
     }
+
+    @GetMapping("/doctype")
+    public ExtractsDTO docType(){
+        return services.docType();
+    }
 }

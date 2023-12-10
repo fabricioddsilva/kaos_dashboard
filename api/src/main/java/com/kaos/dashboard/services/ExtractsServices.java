@@ -27,4 +27,8 @@ public class ExtractsServices {
                 .collect(Collectors.toList());
     }
 
+    public ExtractsDTO docType(){
+        
+    }
+
 }
