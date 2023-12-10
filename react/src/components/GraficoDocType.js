@@ -5,7 +5,7 @@ const GraficoDocType = () => {
   const [docTypeData, setDocTypeData] = useState([]);
 
   useEffect(() => {
-    fetch("/api/extracts/docTypeData")
+    fetch("/api/extracts/doc_type")
       .then((response) => response.json())
       .then((data) => {
         setDocTypeData(data);
@@ -16,7 +16,7 @@ const GraficoDocType = () => {
   }, []);
 
   const chartData = {
-    labels: docTypeData.map((docType) => docType.docType),
+    labels: docTypeData.map((docType) => docType.name),
     datasets: [{
       data: docTypeData.map((docType) => docType.count),
       backgroundColor: docTypeData.map((docType) => docType.color),

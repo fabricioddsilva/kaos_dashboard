@@ -6,7 +6,7 @@ const GraficoSegmentos = () => {
   const [segmentData, setSegmentData] = useState([]);
 
   useEffect(() => {
-    fetch("/api/users/segmentData")
+    fetch("/api/users/segment")
       .then((response) => response.json())
       .then((data) => {
         setSegmentData(data);
