@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Container, Modal, Row, Table } from "react-bootstrap";
+import { Button, Card, Modal, Row, Table } from "react-bootstrap";
 import { AiOutlineUser } from "react-icons/ai";
 
 function QtdUsersData() {
   const [show, setShow] = useState(false);
   const [numUsers, setNumUsers] = useState(0);
-  const [oldestUserData, setOldestUserData] = useState({ name: "", registrationDate: "" });
+  const [oldestUserName, setOldestUserName] = useState({ name: ""});
+  const [oldestUserData, setOldestUserData] = useState({created_At: "" });
   const [userList, setUserList] = useState([]);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    fetch("/api/users/count")
+    fetch("/api/users/Id")
       .then((response) => response.json())
       .then((data) => {
         setNumUsers(data.count);
@@ -21,16 +21,25 @@ function QtdUsersData() {
         console.error("Error fetching user count:", error);
       });
 
-    fetch("/api/users/oldestUserData")
+    fetch("/api/users/name")
       .then((response) => response.json())
       .then((data) => {
-        setOldestUserData({ name: data.name, registrationDate: data.registrationDate });
+        setOldestUserData({ name: data.name });
       })
       .catch((error) => {
         console.error("Error fetching oldest user data:", error);
       });
 
-    fetch("/api/users/list")
+      fetch("/api/extracts/created_At")
+      .then((response) => response.json())
+      .then((data) => {
+        setOldestUserName({ Created_At: data.created_At });
+      })
+      .catch((error) => {
+        console.error("Error fetching oldest user data:", error);
+      });
+
+    fetch("/api/users")
       .then((response) => response.json())
       .then((data) => {
         setUserList(data);
@@ -54,7 +63,7 @@ function QtdUsersData() {
       <Card className="text-center shadow border">
         <Card.Header>Data de cadastro dos usuários</Card.Header>
         <Card.Body>
-          <p className="fs-3 py-2">{`Usuario mais antigo cadastrado: ${oldestUserData.name} ${oldestUserData.registrationDate}`}</p>
+          <p className="fs-3 py-2">{`Usuario mais antigo cadastrado: ${oldestUserName.name} ${oldestUserData.created_At}`}</p>
           {numUsers > 0 && (
             <Button className="mb-1 bg-danger-subtle text-black border-danger" onClick={handleShow}>
               Mostrar mais
@@ -70,8 +79,7 @@ function QtdUsersData() {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Primeiro nome</th>
-                      <th>Ultimo Nome</th>
+                      <th>Nome</th>
                       <th>Data de cadastro</th>
                     </tr>
                   </thead>
@@ -79,9 +87,8 @@ function QtdUsersData() {
                     {userList.map((user) => (
                       <tr key={user.id}>
                         <td>{user.id}</td>
-                        <td>{user.firstName}</td>
-                        <td>{user.lastName}</td>
-                        <td>{user.registrationDate}</td>
+                        <td>{user.name}</td>
+                        <td>{user.created_At}</td>
                       </tr>
                     ))}
                   </tbody>
