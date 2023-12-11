@@ -78,8 +78,8 @@ const GraficoDocType = () => {
   };
 
   return (
-    <div style={{ height: '400px' }}>
-      <Bar id="graficoDocType" data={chartData} options={options} />
+    <div>
+      <Bar style={{ height: '400px' }} id="graficoDocType" data={chartData} options={options} />
     </div>
   );
 };
