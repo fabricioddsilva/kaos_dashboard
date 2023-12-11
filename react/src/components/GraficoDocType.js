@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 const GraficoDocType = () => {
   const [docTypeData, setDocTypeData] = useState([]);
@@ -71,7 +71,7 @@ const GraficoDocType = () => {
 
   return (
     <div>
-      <Doughnut id="graficoDocType" data={chartData} options={options} />
+      <Bar id="graficoDocType" data={chartData} options={options} />
     </div>
   );
 };
