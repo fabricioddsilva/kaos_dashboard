@@ -58,6 +58,19 @@ const GraficoDocType = () => {
     shadowBlur: 20,
       shadowOffsetX: 15,
       shadowOffsetY: 15,
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            autoSkip: true,
+            maxRotation: 45,
+          },
+        },
+        y: {
+          beginAtZero: true,
+          min: 0,
+        },
+      },
   };
 
   const getRandomColor = () => {
@@ -70,7 +83,7 @@ const GraficoDocType = () => {
   };
 
   return (
-    <div>
+    <div style={{ height: '300px' }}>
       <Bar id="graficoDocType" data={chartData} options={options} />
     </div>
   );
