@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Data
 public class Extracts {
-
     @Id
     private long id;
 

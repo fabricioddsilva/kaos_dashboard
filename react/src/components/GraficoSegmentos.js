@@ -6,7 +6,7 @@ const GraficoSegmentos = () => {
   const [segmentData, setSegmentData] = useState([]);
 
   useEffect(() => {
-    fetch("/api/users/segment")
+    fetch("http://localhost:8080/users")
       .then((response) => response.json())
       .then((data) => {
         setSegmentData(data);
@@ -19,7 +19,7 @@ const GraficoSegmentos = () => {
   useEffect(() => {
     if (segmentData.length > 0) {
       const data = {
-        labels: segmentData.map((segment) => segment.name),
+        labels: segmentData.map((segment) => segment.segment),
         datasets: [
           {
             data: segmentData.map((segment) => segment.count),

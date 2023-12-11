@@ -12,7 +12,7 @@ function QtdUsersData() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    fetch("/api/users")
+    fetch("http://localhost:8080/users")
       .then((response) => response.json())
       .then((data) => {
         setNumUsers(data.length);
@@ -21,7 +21,7 @@ function QtdUsersData() {
       .catch((error) => {
         console.error("Error fetching user list:", error);
       });
-    fetch("/api/extracts")
+    fetch("http://localhost:8080/extracts")
       .then((response) => response.json())
       .then((data) => {
         setExtractsList(data);
