@@ -1,17 +1,19 @@
 import NavbarHome from "../components/NavbarHome";
 import ContainerSup from "../components/ContainerSup";
-import QtdUsersData from "../components/QtdUsersData";
+import QtdUsers from "../components/QtdUsers";
 import GraficoDocType from "../components/GraficoDocType";
 import GraficoSegmentos from "../components/GraficoSegmentos";
 import { Col, Container, Figure, Row } from "react-bootstrap";
 import logo from '../imgs/BackgroundEraser_20231112_212322950.png'
+import Ocorrencias from "../components/Ocorrencias";
 
 function Home(){
     return(
         <>
         <NavbarHome />
         <ContainerSup />
-        <QtdUsersData />
+        <QtdUsers />
+        <Ocorrencias />
         <Container className='d-flex justify-content-center align-center'>
           <Row className='d-flex justify-content-center align-center container gap-3 mt-4'>
             <Col className= 'd-flex justify-content-center align-center shadow pb-2 rounded-2 border'>
@@ -22,10 +24,10 @@ function Home(){
               </Col>
           </Row>
         </Container>
-        <Figure className='d-flex justify-content-center align-center my-4'>
+        <Figure className='d-flex justify-content-center align-center my-5'>
           <Figure.Image
-            width={450}
-            height={420}
+            width={350}
+            height={300}
             alt= "logo"
             src= {logo}
             />
