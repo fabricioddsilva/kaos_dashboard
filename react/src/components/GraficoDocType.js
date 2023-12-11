@@ -56,6 +56,9 @@ const GraficoDocType = () => {
         borderWidth: 2,
       },
     },
+    legend:{
+      display: false
+    },
     scales: {
       x: {
         beginAtZero: true,
@@ -82,7 +85,7 @@ const GraficoDocType = () => {
 
   return (
     <div style={{ height: '300px' }}>
-      <Bar id="graficoDocType" data={chartData} options={options} />
+      <Bar id="graficoDocType" data={chartData} options={options} style={{width: '100%'}}/>
     </div>
   );
 };

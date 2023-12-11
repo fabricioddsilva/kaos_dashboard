@@ -13,7 +13,6 @@ function NavbarHome() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="gap-3">
             <Nav.Link href="#home" className='fs-4 text-white'>Home</Nav.Link>
-            <Nav.Link href="#graficos" className='fs-4 text-white'>Contatos</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
