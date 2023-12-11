@@ -35,7 +35,6 @@ const GraficoDocType = () => {
   const chartData = {
     labels: docTypeData.map((docType) => docType.name),
     datasets: [{
-      label: 'Quantidade',
       data: docTypeData.map((docType) => docType.count),
       backgroundColor: docTypeData.map((docType) => docType.color),
       borderWidth: 2,
@@ -51,10 +50,8 @@ const GraficoDocType = () => {
         fontColor: 'rgba(255, 182, 193, 1)',
       },
     },
-    elements: {
-      rectangle: {
-        borderWidth: 2,
-      },
+    legend: {
+      display: false, // Remover a legenda
     },
     scales: {
       x: {
@@ -81,7 +78,7 @@ const GraficoDocType = () => {
   };
 
   return (
-    <div style={{ height: '300px' }}>
+    <div style={{ height: '400px' }}>
       <Bar id="graficoDocType" data={chartData} options={options} />
     </div>
   );
