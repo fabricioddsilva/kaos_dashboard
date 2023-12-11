@@ -6,14 +6,29 @@ const GraficoSegmentos = () => {
   const [segmentData, setSegmentData] = useState([]);
 
   useEffect(() => {
-    fetch("/api/users/segment")
-      .then((response) => response.json())
-      .then((data) => {
-        setSegmentData(data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const usersResponse = await fetch("http://localhost:8080/users");
+        const usersData = await usersResponse.json();
+        const uniqueSegmentsUsers = Array.from(new Set(usersData.map(user => user.segment)));
+        const segmentsResponse = await fetch("http://localhost:8080/users/segments");
+        const segmentsData = await segmentsResponse.json();
+        const uniqueSegments = Array.from(new Set([...uniqueSegmentsUsers, ...segmentsData.map(segment => segment.name)]));
+        const segmentCounts = uniqueSegments.map((segment) => {
+          const userCount = usersData.filter(user => user.segment === segment).length;
+          return {
+            name: segment,
+            count: userCount,
+          };
+        });
+
+        setSegmentData(segmentCounts);
+      } catch (error) {
         console.error("Error fetching segment data:", error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -23,7 +38,7 @@ const GraficoSegmentos = () => {
         datasets: [
           {
             data: segmentData.map((segment) => segment.count),
-            backgroundColor: segmentData.map((segment) => segment.color),
+            backgroundColor: segmentData.map((segment) => getRandomColor()),
             borderWidth: 2,
           },
         ],
@@ -45,9 +60,9 @@ const GraficoSegmentos = () => {
           },
         },
         shadowColor: "rgba(0, 0, 0, 0.3)",
-        shadowBlur: 10,
-        shadowOffsetX: 5,
-        shadowOffsetY: 5,
+        shadowBlur: 20,
+        shadowOffsetX: 15,
+        shadowOffsetY: 15,
       };
 
       const ctx = chartRef.current.getContext("2d");
@@ -62,6 +77,15 @@ const GraficoSegmentos = () => {
       };
     }
   }, [segmentData]);
+
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   return (
     <div>
