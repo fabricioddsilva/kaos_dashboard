@@ -95,19 +95,19 @@ function GraficoDocType() {
           variant="danger-subtle"
           onClick={() => setSortOption("asc")}
         >
-          Ordenar Crescente
+          Ordem Crescente
         </Button>{" "}
         <Button
           variant="danger-subtle"
           onClick={() => setSortOption("desc")}
         >
-          Ordenar Decrescente
+          Ordem Decrescente
         </Button>{" "}
         <Button
           variant="danger-subtle"
           onClick={() => setSortOption("")}
         >
-          Remover Ordenação
+          Remover Filtros
         </Button>
       </div>
       <Bar id="graficoDocType" data={chartData} options={options} style={{ width: '100%' }} />
