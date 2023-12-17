@@ -28,7 +28,7 @@ function QtdUsers() {
       .catch((error) => {
         console.error("Error fetching users list:", error);
       });
-  }, [filterOption]);
+  }, [filterOption, show]);
 
   return (
     <Container>
@@ -71,6 +71,26 @@ function QtdUsers() {
                 <Modal.Title>Usuários Cadastrados</Modal.Title>
               </Modal.Header>
               <Modal.Body>
+                <div className="mb-1">
+                  <Button
+                    variant="danger-subtle"
+                    onClick={() => setFilterOption("name")}
+                  >
+                    Filtrar por Nome
+                  </Button>{" "}
+                  <Button
+                    variant="danger-subtle"
+                    onClick={() => setFilterOption("segment")}
+                  >
+                    Filtrar por Segmento
+                  </Button>{" "}
+                  <Button
+                    variant="danger-subtle"
+                    onClick={() => setFilterOption("")}
+                  >
+                    Remover Filtros
+                  </Button>
+                </div>
                 {numUsers > 0 && (
                   <Table striped bordered hover>
                     <thead>
