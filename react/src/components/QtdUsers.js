@@ -37,7 +37,7 @@ function QtdUsers() {
   const applyFilter = () => {
     if (filterType === "none") {
       setFilteredUserList(userList);
-    } else if (filterType === "occurrences") {
+    } else if (filterType === "ocorrencias") {
       const filteredList = userList.filter((user) => user.ocorrencias > 0);
       setFilteredUserList(filteredList);
     }
@@ -74,7 +74,7 @@ function QtdUsers() {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => setFilterType("none")}>Nenhum Filtro</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setFilterType("occurrences")}>Ocorrências por Usuário</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterType("ocorrencias")}>Ocorrências por Usuário</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
 
