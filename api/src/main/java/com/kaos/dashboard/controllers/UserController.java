@@ -23,9 +23,14 @@ public class UserController {
         return service.list();
     }
 
-    @GetMapping("/{id}/doctype")
-    public List<UserDocTypeCount> userDocTypeCounts(@PathVariable Long id){
-        return service.userDocTypeCounts(id);
+    @GetMapping("/{id}/doctype/desc")
+    public List<UserDocTypeCount> userDocTypeCountDesc(@PathVariable Long id){
+        return service.userDocTypeCountDesc(id);
+    }
+
+    @GetMapping("/{id}/doctype/asc")
+    public List<UserDocTypeCount> userDocTypeCountAsc(@PathVariable Long id){
+        return service.userDocTypeCountAsc(id);
     }
 
 }

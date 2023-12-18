@@ -19,5 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<UserExtracts> userExtracts();
 
     @Query(value = "select u.*, e.doc_type, count(e.id) as contagem from users as u join extracts as e on u.id = e.user_id where u.id = :id group by u.id, e.doc_type order by contagem desc", nativeQuery = true)
-    public List<UserDocTypeCount> userDocTypeCount(Long id);
+    public List<UserDocTypeCount> userDocTypeCountDesc(Long id);
+
+    @Query(value = "select u.*, e.doc_type, count(e.id) as contagem from users as u join extracts as e on u.id = e.user_id where u.id = :id group by u.id, e.doc_type order by contagem asc", nativeQuery = true)
+    public List<UserDocTypeCount> userDocTypeCountAsc(Long id);
 }

@@ -26,7 +26,7 @@ function GraficoDocType() {
     const fetchData = async () => {
       try {
         if (selectedUser) {
-          const apiUrl = `http://localhost:8080/users/${selectedUser.id}/doctype`;
+          const apiUrl = `http://localhost:8080/users/${selectedUser.id}/doctype/${sortOption}`;
           const response = await fetch(apiUrl);
           const data = await response.json();
 
@@ -142,7 +142,7 @@ function GraficoDocType() {
           Ordem Decrescente
         </Button>
       </div>
-      <Bar id="graficoDocType" data={chartData} options={options} style= {{height: '400px', width: '100%' }} />
+      <Bar id="graficoDocType" data={chartData} options={options} style= {{height: '400px', width: '500px' }} />
     </div>
   );
 }

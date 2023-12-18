@@ -27,8 +27,12 @@ public class UserService {
 
     }
 
-    public List<UserDocTypeCount> userDocTypeCounts(Long id){
-        return userRep.userDocTypeCount(id);
+    public List<UserDocTypeCount> userDocTypeCountDesc(Long id){
+        return userRep.userDocTypeCountDesc(id);
+    }
+
+    public List<UserDocTypeCount> userDocTypeCountAsc(Long id){
+        return userRep.userDocTypeCountAsc(id);
     }
 
 
