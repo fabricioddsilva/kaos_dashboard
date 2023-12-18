@@ -73,7 +73,7 @@ function GraficoDocType() {
       title: {
         display: true,
         text: `Tipos de Documentos - ${selectedUser ? selectedUser.name : 'Todos os Usuários'}`,
-        fontSize: 18,
+        fontSize: 16,
         fontColor: 'rgba(255, 182, 193, 1)',
       },
     },
@@ -117,7 +117,7 @@ function GraficoDocType() {
     <div style={{ height: '400px' }}>
       <div className="mb-1">
         <Dropdown>
-          <Dropdown.Toggle className="mb-1 bg-danger-subtle text-black" id="dropdown-users">
+          <Dropdown.Toggle className="my-2 bg-danger-subtle text-black" id="dropdown-users">
             {selectedUser ? selectedUser.name : 'Escolha um Usuário'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
