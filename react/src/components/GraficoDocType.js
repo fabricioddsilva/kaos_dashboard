@@ -142,7 +142,7 @@ function GraficoDocType() {
           Ordem Decrescente
         </Button>
       </div>
-      <Bar id="graficoDocType" data={chartData} options={options} style= {{height: '400px', width: '500px' }} />
+      <Bar id="graficoDocType" data={chartData} options={options} style= {{height: '700px', width: '100%' }} />
     </div>
   );
 }
