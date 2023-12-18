@@ -1,5 +1,6 @@
 package com.kaos.dashboard.repositories;
 
+import com.kaos.dashboard.dto.projections.UserDocTypeCount;
 import com.kaos.dashboard.dto.projections.UserExtracts;
 import com.kaos.dashboard.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select u.*, count(e.id) as ocorrencias from users as u join extracts as e on e.user_id = u.id group by u.id order by ocorrencias DESC", nativeQuery = true)
     public List<UserExtracts> userExtracts();
+
+    @Query(value = "select u.*, e.doc_type, count(e.id) as contagem from users as u join extracts as e on u.id = e.user_id where u.id = :id group by u.id, e.doc_type order by contagem desc", nativeQuery = true)
+    public List<UserDocTypeCount> userDocTypeCount(Long id);
 }

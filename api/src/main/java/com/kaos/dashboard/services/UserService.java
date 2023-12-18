@@ -2,6 +2,7 @@ package com.kaos.dashboard.services;
 
 import com.kaos.dashboard.dto.UserDTO;
 import com.kaos.dashboard.dto.mapper.UserMapper;
+import com.kaos.dashboard.dto.projections.UserDocTypeCount;
 import com.kaos.dashboard.dto.projections.UserExtracts;
 import com.kaos.dashboard.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,8 @@ public class UserService {
 
     }
 
-    public List<UserDTO> orderByName(){
-        return userRep.orderByName()
-                .stream()
-                .map(mapper::toDTO)
-                .collect(Collectors.toList());
+    public List<UserDocTypeCount> userDocTypeCounts(Long id){
+        return userRep.userDocTypeCount(id);
     }
 
 

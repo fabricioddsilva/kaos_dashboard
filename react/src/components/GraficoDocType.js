@@ -14,8 +14,8 @@ function GraficoDocType() {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        const docTypeArray = data.map(({ doc_type, contagem }) => ({
-          name: doc_type,
+        const docTypeArray = data.map(({ doc_Type, contagem }) => ({
+          name: doc_Type,
           count: contagem,
           color: getRandomColor(),
         }));
@@ -30,10 +30,10 @@ function GraficoDocType() {
   }, [sortOption]);
 
   const chartData = {
-    labels: docTypeData.map((docType) => docType.doc_type),
+    labels: docTypeData.map((docType) => docType.name),
     datasets: [{
       label: 'Quantidade',
-      data: docTypeData.map((docType) => docType.contagem),
+      data: docTypeData.map((docType) => docType.count),
       backgroundColor: docTypeData.map((docType) => docType.color),
       borderWidth: 2,
     }],
@@ -85,13 +85,13 @@ function GraficoDocType() {
       <div className="mb-1">
         <Button
           variant="danger-subtle"
-          onClick={() => setSortOption("/doctype/asc")}
+          onClick={() => setSortOption("doctype/asc")}
         >
           Ordem Crescente
         </Button>{" "}
         <Button
           variant="danger-subtle"
-          onClick={() => setSortOption("/doctype/desc")}
+          onClick={() => setSortOption("doctype/desc")}
         >
           Ordem Decrescente
         </Button>{" "}
