@@ -117,7 +117,6 @@ function QtdUsers() {
         </Card.Body>
       </Card>
     </Container>
-  );
-}
+  );}
 
 export default QtdUsers;
