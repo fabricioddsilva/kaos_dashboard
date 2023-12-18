@@ -117,7 +117,7 @@ function GraficoDocType() {
     <div style={{ height: '400px' }}>
       <div className="mb-1">
         <Dropdown>
-          <Dropdown.Toggle className="mb-1 bg-danger-subtle text-black" id="dropdown-users">
+          <Dropdown.Toggle className="my-1 bg-danger-subtle text-black" id="dropdown-users">
             {selectedUser ? selectedUser.name : 'Escolha um Usuário'}
           </Dropdown.Toggle>
           <Dropdown.Menu>
