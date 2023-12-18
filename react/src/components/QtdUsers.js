@@ -69,12 +69,12 @@ function QtdUsers() {
               </Modal.Header>
               <Modal.Body>
                 <Dropdown>
-                  <Dropdown.Toggle variant="secondary" id="filterDropdown">
-                    Filtrar por: {filterType === "none" ? "Nenhum Filtro" : "Ocorrências por Usuário"}
+                  <Dropdown.Toggle className="m-2 bg-danger-subtle" id="filterDropdown">
+                    Filtrar por: {filterType === "none" ? "Todos os campos" : "Ocorrências por Usuário"}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => setFilterType("none")}>Nenhum Filtro</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setFilterType("ocorrencias")}>Ocorrências por Usuário</Dropdown.Item>
+                    <Dropdown.Item className="bg-danger-subtle" onClick={() => setFilterType("none")}>Todos os campos</Dropdown.Item>
+                    <Dropdown.Item className="bg-danger-subtle" onClick={() => setFilterType("ocorrencias")}>Ocorrências por Usuário</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
 

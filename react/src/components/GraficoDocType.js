@@ -4,12 +4,12 @@ import { Button } from 'react-bootstrap';
 
 function GraficoDocType() {
   const [docTypeData, setDocTypeData] = useState([]);
-  const [sortOption, setSortOption] = useState('');
+  const [sortOption, setSortOption] = useState('asc'); // Defina a ordenação padrão
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = sortOption ? `http://localhost:8080/extracts/${sortOption}` : 'http://localhost:8080/extracts';
+        const apiUrl = `http://localhost:8080/extracts/${sortOption}`;
 
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -84,22 +84,16 @@ function GraficoDocType() {
     <div style={{ height: '300px' }}>
       <div className="mb-1">
         <Button
-          variant="danger-subtle"
+          className="bg-danger-subtle text-black"
           onClick={() => setSortOption("asc")}
         >
           Ordem Crescente
         </Button>{" "}
         <Button
-          variant="danger-subtle"
+          className="bg-danger-subtle text-black"
           onClick={() => setSortOption("desc")}
         >
           Ordem Decrescente
-        </Button>{" "}
-        <Button
-          variant="danger-subtle"
-          onClick={() => setSortOption("")}
-        >
-          Remover Filtros
         </Button>
       </div>
       <Bar id="graficoDocType" data={chartData} options={options} style={{ width: '100%' }} />
