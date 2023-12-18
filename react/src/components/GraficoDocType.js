@@ -1,33 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Button } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 
 function GraficoDocType() {
   const [docTypeData, setDocTypeData] = useState([]);
   const [sortOption, setSortOption] = useState('asc'); // Defina a ordenação padrão
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [usersList, setUsersList] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const usersResponse = await fetch('http://localhost:8080/users');
+        const usersData = await usersResponse.json();
+        setUsersList(usersData);
+      } catch (error) {
+        console.error('Error fetching users data:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = `http://localhost:8080/extracts/${sortOption}`;
+        if (selectedUser) {
+          const apiUrl = `http://localhost:8080/users/${selectedUser.id}/doctype`;
+          const response = await fetch(apiUrl);
+          const data = await response.json();
 
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+          const docTypeArray = data.map(({ doc_type, contagem }) => ({
+            name: doc_type,
+            count: contagem,
+            color: getRandomColor(),
+          }));
 
-        const docTypeArray = data.map(({ doc_type, contagem }) => ({
-          name: doc_type,
-          count: contagem,
-          color: getRandomColor(),
-        }));
+          setDocTypeData(docTypeArray);
+        } else {
+          const apiUrl = `http://localhost:8080/extracts/${sortOption}`;
+          const response = await fetch(apiUrl);
+          const data = await response.json();
 
-        setDocTypeData(docTypeArray);
+          const docTypeArray = data.map(({ doc_type, contagem }) => ({
+            name: doc_type,
+            count: contagem,
+            color: getRandomColor(),
+          }));
+
+          setDocTypeData(docTypeArray);
+        }
       } catch (error) {
         console.error('Error fetching document type data:', error);
       }
     };
 
     fetchData();
-  }, [sortOption]);
+  }, [selectedUser, sortOption]);
 
   const chartData = {
     labels: docTypeData.map((docType) => docType.name),
@@ -43,7 +72,7 @@ function GraficoDocType() {
     plugins: {
       title: {
         display: true,
-        text: 'Tipos de Documentos',
+        text: `Tipos de Documentos - ${selectedUser ? selectedUser.name : 'Todos os Usuários'}`,
         fontSize: 18,
         fontColor: 'rgba(255, 182, 193, 1)',
       },
@@ -54,7 +83,7 @@ function GraficoDocType() {
       },
     },
     legend: {
-      display: false
+      display: false,
     },
     scales: {
       x: {
@@ -83,6 +112,19 @@ function GraficoDocType() {
   return (
     <div style={{ height: '300px' }}>
       <div className="mb-1">
+        <Dropdown>
+          <Dropdown.Toggle className="m-2 bg-danger-subtle text-black" id="dropdown-users">
+            {selectedUser ? selectedUser.name : 'Escolha um Usuário'}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item className="bg-danger-subtle text-black" onClick={() => setSelectedUser(null)}>Todos os Usuários</Dropdown.Item>
+            {usersList.map((user) => (
+              <Dropdown.Item className="bg-danger-subtle text-black" key={user.id} onClick={() => setSelectedUser(user)}>
+                {user.name}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
         <Button
           className="bg-danger-subtle text-black"
           onClick={() => setSortOption("asc")}
