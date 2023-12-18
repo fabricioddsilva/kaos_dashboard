@@ -88,9 +88,13 @@ function GraficoDocType() {
     scales: {
       x: {
         beginAtZero: true,
+        min: 0,
+        suggestedMax: 500,
+        stepSize: 100,   
         ticks: {
           autoSkip: true,
           maxRotation: 45,
+          fontSize: 12,
         },
       },
       y: {
@@ -138,7 +142,7 @@ function GraficoDocType() {
           Ordem Decrescente
         </Button>
       </div>
-      <Bar id="graficoDocType" data={chartData} options={options} style={{ width: '100%' }} />
+      <Bar id="graficoDocType" data={chartData} options={options} style= {{height: '400px', width: '100%' }} />
     </div>
   );
 }
