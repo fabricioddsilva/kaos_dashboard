@@ -9,22 +9,14 @@ function GraficoDocType() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = sortOption ? `http://localhost:8080/extracts?sort=${sortOption}` : 'http://localhost:8080/extracts';
+        const apiUrl = sortOption ? `http://localhost:8080/extracts/${sortOption}` : 'http://localhost:8080/extracts';
 
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        const docTypeCounts = data.reduce((acc, extract) => {
-          const docType = extract.doc_type;
-          if (docType) {
-            acc[docType] = (acc[docType] || 0) + 1;
-          }
-          return acc;
-        }, {});
-
-        const docTypeArray = Object.entries(docTypeCounts).map(([name, count]) => ({
-          name,
-          count,
+        const docTypeArray = data.map(({ doc_type, contagem }) => ({
+          name: doc_type,
+          count: contagem,
           color: getRandomColor(),
         }));
 
