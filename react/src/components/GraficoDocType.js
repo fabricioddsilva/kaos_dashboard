@@ -30,20 +30,20 @@ function GraficoDocType() {
           const response = await fetch(apiUrl);
           const data = await response.json();
 
-          const docTypeArray = data.map(({ doc_type, contagem }) => ({
-            name: doc_type,
+          const docTypeArray = data.map(({ doc_Type, contagem }) => ({
+            name: doc_Type,
             count: contagem,
             color: getRandomColor(),
           }));
 
           setDocTypeData(docTypeArray);
         } else {
-          const apiUrl = `http://localhost:8080/extracts/${sortOption}`;
+          const apiUrl = `http://localhost:8080/extracts/doctype/${sortOption}`;
           const response = await fetch(apiUrl);
           const data = await response.json();
 
-          const docTypeArray = data.map(({ doc_type, contagem }) => ({
-            name: doc_type,
+          const docTypeArray = data.map(({ doc_Type, contagem }) => ({
+            name: doc_Type,
             count: contagem,
             color: getRandomColor(),
           }));
