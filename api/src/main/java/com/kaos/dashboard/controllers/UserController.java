@@ -1,6 +1,7 @@
 package com.kaos.dashboard.controllers;
 
 import com.kaos.dashboard.dto.UserDTO;
+import com.kaos.dashboard.dto.projections.UserExtracts;
 import com.kaos.dashboard.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,13 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> list(){
+    public List<UserExtracts> list(){
         return service.list();
+    }
+
+    @GetMapping("/order/name")
+    public List<UserDTO> orderByName(){
+        return service.orderByName();
     }
 
 }

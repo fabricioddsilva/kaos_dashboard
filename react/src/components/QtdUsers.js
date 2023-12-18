@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Container, Modal, Row, Table } from "react-bootstrap";
+import { Card, Container, Row, Button, Modal, Table } from "react-bootstrap";
 import { AiOutlineUser } from "react-icons/ai";
 
 function QtdUsers() {
-  const [show, setShow] = useState(false);
   const [numUsers, setNumUsers] = useState(0);
   const [userList, setUserList] = useState([]);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [filterOption, setFilterOption] = useState("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Rota para obter a contagem de usuários
     fetch("http://localhost:8080/users")
       .then((response) => response.json())
       .then((countData) => {
@@ -20,8 +18,9 @@ function QtdUsers() {
         console.error("Error fetching user count:", error);
       });
 
-    // Rota para obter os detalhes da tabela users
-    fetch("http://localhost:8080/users")
+    const apiUrl = filterOption ? `http://localhost:8080/users?filter=${filterOption}` : "http://localhost:8080/users";
+
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         setUserList(data);
@@ -29,7 +28,7 @@ function QtdUsers() {
       .catch((error) => {
         console.error("Error fetching users list:", error);
       });
-  }, []);
+  }, [filterOption, show]);
 
   return (
     <Container>
@@ -39,19 +38,59 @@ function QtdUsers() {
           <Row className="align-center d-flex justify-content-center">
             <AiOutlineUser className="fs-1 mt-2" />
             <p className="fs-3 mt-2">{`${numUsers} usuários cadastrados`}</p>
+            <div className="mb-1">
+              <Button
+                variant="danger-subtle"
+                onClick={() => setFilterOption("name")}
+              >
+                Filtrar por Nome
+              </Button>{" "}
+              <Button
+                variant="danger-subtle"
+                onClick={() => setFilterOption("segment")}
+              >
+                Filtrar por Segmento
+              </Button>{" "}
+              <Button
+                variant="danger-subtle"
+                onClick={() => setFilterOption("")}
+              >
+                Remover Filtros
+              </Button>
+            </div>
             {numUsers > 0 && (
               <Button
                 className="mb-1 bg-danger-subtle text-black border-danger"
-                onClick={handleShow}
+                onClick={() => setShow(true)}
               >
                 Mostrar mais
               </Button>
             )}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={() => setShow(false)}>
               <Modal.Header closeButton>
                 <Modal.Title>Usuários Cadastrados</Modal.Title>
               </Modal.Header>
               <Modal.Body>
+                <div className="mb-1">
+                  <Button
+                    variant="danger-subtle"
+                    onClick={() => setFilterOption("name")}
+                  >
+                    Filtrar por Nome
+                  </Button>{" "}
+                  <Button
+                    variant="danger-subtle"
+                    onClick={() => setFilterOption("segment")}
+                  >
+                    Filtrar por Segmento
+                  </Button>{" "}
+                  <Button
+                    variant="danger-subtle"
+                    onClick={() => setFilterOption("")}
+                  >
+                    Remover Filtros
+                  </Button>
+                </div>
                 {numUsers > 0 && (
                   <Table striped bordered hover>
                     <thead>

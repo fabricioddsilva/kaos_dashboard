@@ -2,6 +2,7 @@ package com.kaos.dashboard.services;
 
 import com.kaos.dashboard.dto.ExtractsDTO;
 import com.kaos.dashboard.dto.mapper.ExtractsMapper;
+import com.kaos.dashboard.dto.projections.DocTypeCount;
 import com.kaos.dashboard.repositories.ExtractsRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,16 @@ public class ExtractsServices {
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<DocTypeCount> doctypeDesc(){
+        return repository.doctypeDesc();
+
+    }
+
+    public List<DocTypeCount> doctypeAsc(){
+        return repository.doctypeAsc();
+
     }
 
 }

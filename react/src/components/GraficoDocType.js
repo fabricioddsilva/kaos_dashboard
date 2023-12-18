@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Button } from 'react-bootstrap';
 
-const GraficoDocType = () => {
+function GraficoDocType() {
   const [docTypeData, setDocTypeData] = useState([]);
+  const [sortOption, setSortOption] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/extracts");
+        const apiUrl = sortOption ? `http://localhost:8080/extracts?sort=${sortOption}` : 'http://localhost:8080/extracts';
+
+        const response = await fetch(apiUrl);
         const data = await response.json();
+
         const docTypeCounts = data.reduce((acc, extract) => {
           const docType = extract.doc_type;
           if (docType) {
@@ -25,18 +30,18 @@ const GraficoDocType = () => {
 
         setDocTypeData(docTypeArray);
       } catch (error) {
-        console.error("Error fetching document type data:", error);
+        console.error('Error fetching document type data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [sortOption]);
 
   const chartData = {
-    labels: docTypeData.map((docType) => docType.name),
+    labels: docTypeData.map((docType) => docType.doc_type),
     datasets: [{
       label: 'Quantidade',
-      data: docTypeData.map((docType) => docType.count),
+      data: docTypeData.map((docType) => docType.contagem),
       backgroundColor: docTypeData.map((docType) => docType.color),
       borderWidth: 2,
     }],
@@ -56,7 +61,7 @@ const GraficoDocType = () => {
         borderWidth: 2,
       },
     },
-    legend:{
+    legend: {
       display: false
     },
     scales: {
@@ -85,9 +90,29 @@ const GraficoDocType = () => {
 
   return (
     <div style={{ height: '300px' }}>
-      <Bar id="graficoDocType" data={chartData} options={options} style={{width: '500px'}}/>
+      <div className="mb-1">
+        <Button
+          variant="danger-subtle"
+          onClick={() => setSortOption("/doctype/asc")}
+        >
+          Ordem Crescente
+        </Button>{" "}
+        <Button
+          variant="danger-subtle"
+          onClick={() => setSortOption("/doctype/desc")}
+        >
+          Ordem Decrescente
+        </Button>{" "}
+        <Button
+          variant="danger-subtle"
+          onClick={() => setSortOption("")}
+        >
+          Remover Filtros
+        </Button>
+      </div>
+      <Bar id="graficoDocType" data={chartData} options={options} style={{ width: '100%' }} />
     </div>
   );
-};
+}
 
 export default GraficoDocType;
